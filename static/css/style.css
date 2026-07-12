@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -119,4 +120,127 @@ footer {
     padding: 30px 0;
     margin-top: 50px;
     font-size: 0.9rem;
+=======
+
+
+
+
+
+/* ========================================
+   فایل اصلی استایل سایت خوشنویسی
+   ======================================== */
+
+/* ---------- تنظیمات کلی ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: #fef9e8;
+    color: #2c2b28;
+    line-height: 1.7;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
+
+/* ---------- هدر (Header) ---------- */
+header {
+    background: #1e1e1c;
+    color: #f4e9d8;
+    padding: 20px 0;
+    border-bottom: 3px solid #d4af37;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+.logo .gold {
+    color: #d4af37;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: #f4e9d8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: #e4b363;
+}
+
+/* ---------- صفحات داخلی ---------- */
+.about-page {
+    background: white;
+    margin: 40px auto;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+    font-size: 2.2rem;
+    color: #3e2a1f;
+    border-right: 6px solid #d4af37;
+    padding-right: 20px;
+    margin-bottom: 30px;
+}
+
+/* ---------- بخش درباره من ---------- */
+.about-content {
+    font-size: 1.1rem;
+    line-height: 2.2;
+    color: #3e2a1f;
+}
+
+.about-content p {
+    margin-bottom: 20px;
+    text-align: justify;
+    padding: 0 5px;
+}
+
+.about-content strong {
+    color: #d4af37;
+    font-weight: bold;
+}
+
+/* .about-content p::first-letter {
+    font-size: 1.8rem;
+    color: #d4af37;
+    font-weight: bold;
+    margin-left: 5px;
+} */
+
+/* ---------- فوتر ---------- */
+footer {
+    background: #1e1e1c;
+    color: #aaa;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+    font-size: 0.9rem;
+>>>>>>> 7956767a86adae2d1e0b7eff85090f4301cedb4a
 }

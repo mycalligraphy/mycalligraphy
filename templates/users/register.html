@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {% extends 'base.html' %}
 
 {% block title %}ثبت‌نام{% endblock %}
@@ -12,4 +13,20 @@
     </form>
     <p>قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'users:login' %}">وارد شوید</a></p>
 </div>
+=======
+{% extends 'base.html' %}
+
+{% block title %}ثبت‌نام{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>ثبت‌نام</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">ثبت‌نام</button>
+    </form>
+    <p>قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'users:login' %}">وارد شوید</a></p>
+</div>
+>>>>>>> 7956767a86adae2d1e0b7eff85090f4301cedb4a
 {% endblock %}

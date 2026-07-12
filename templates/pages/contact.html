@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 {% extends 'base.html' %}
@@ -44,4 +45,52 @@
         <p>📷 اینستاگرام: @moradi.5396</p>
     </div>
 </div>
+=======
+
+
+{% extends 'base.html' %}
+
+{% block title %}
+تماس با من
+{% endblock %}
+
+{% block content %}
+<div class="container contact-page">
+    <h2>تماس با من</h2>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>نام شما:</label>
+            <input type="text" name="name" required>
+        </div>
+        
+        <div class="form-group">
+            <label>ایمیل:</label>
+            <input type="email" name="email" required>
+        </div>
+        
+        <div class="form-group">
+            <label>پیام شما:</label>
+            <textarea name="message" rows="5" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn">ارسال پیام</button>
+    </form>
+    
+    <div class="contact-info">
+        <h3>راه‌های ارتباطی دیگر:</h3>
+        <p>📞 09186799138</p>
+        <p>📷 اینستاگرام: @moradi.5396</p>
+    </div>
+</div>
+>>>>>>> 7956767a86adae2d1e0b7eff85090f4301cedb4a
 {% endblock %}
