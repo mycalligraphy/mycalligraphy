@@ -1,0 +1,1 @@
+web: gunicorn calligraphy_site.wsgi:application

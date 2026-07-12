@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}گالری آثار خوشنویسی{% endblock %}
+
+{% block content %}
+<div class="container gallery-page">
+    <div class="gallery-header">
+        <h2>گالری آثار خوشنویسی</h2>
+        
+        <!-- فرم جستجو -->
+        <form method="get" class="search-form">
+            <input type="text" name="q" placeholder="جستجوی آثار..." value="{{ query }}">
+            <button type="submit" class="btn-search">🔍</button>
+            {% if query %}
+                <a href="{% url 'gallery:gallery_list' %}" class="btn-clear">✕</a>
+            {% endif %}
+        </form>
+    </div>
+
+    {% if query %}
+        <p class="search-result">نتیجه جستجو برای: "{{ query }}"</p>
+    {% endif %}
+    
+    <!-- فیلتر دسته‌بندی -->
+    <div class="category-filter">
+        <span>دسته‌بندی:</span>
+        <a href="{% url 'gallery:gallery_list' %}" class="{% if not selected_category %}active{% endif %}">همه</a>
+        {% for category in categories %}
+            <a href="?category={{ category.slug }}{% if query %}&q={{ query }}{% endif %}" 
+               class="{% if selected_category == category.slug %}active{% endif %}">
+                {{ category.name }}
+            </a>
+        {% endfor %}
+    </div>
+    
+    {% if artworks %}
+        <div class="gallery-grid">
+            {% for artwork in artworks %}
+            <div class="gallery-item">
+                {% if artwork.image %}
+                    <img src="{{ artwork.image.url }}" alt="{{ artwork.title }}" class="artwork-image" data-id="{{ artwork.id }}">
+                {% endif %}
+                <h3>{{ artwork.title }}</h3>
+                <p>{{ artwork.description|truncatewords:15 }}</p>
+                
+                <!-- آمار -->
+                <div class="artwork-stats">
+                    <span class="views">👁️ <span id="views-{{ artwork.id }}">{{ artwork.views }}</span></span>
+                    <button class="like-btn" data-id="{{ artwork.id }}">
+                        ❤️ <span id="likes-{{ artwork.id }}">{{ artwork.likes }}</span>
+                    </button>
+                </div>
+                
+                <!-- ========================================== -->
+                <!-- بخش نظرات (کامنت‌ها)                       -->
+                <!-- ========================================== -->
+                <div class="comments-section">
+                    <h5>نظرات ({{ artwork.comments.count }})</h5>
+                    
+                    {% if artwork.comments_list %}
+                        {% for comment in artwork.comments_list %}
+                            <div class="comment-item">
+                                <strong>{{ comment.user.username }}</strong>
+                                <p>{{ comment.text }}</p>
+                                <small>{{ comment.created_at|date:"Y/m/d H:i" }}</small>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-comment">هنوز نظری برای این اثر ثبت نشده است.</p>
+                    {% endif %}
+                    
+                    <!-- فرم ثبت نظر -->
+                    {% if user.is_authenticated %}
+                        <form method="post" action="{% url 'comments:add_comment' artwork.id %}">
+                            {% csrf_token %}
+                            {{ comment_form.text }}
+                            <button type="submit" class="btn">ارسال نظر</button>
+                        </form>
+                    {% else %}
+                        <p class="login-to-comment">برای ثبت نظر <a href="{% url 'login' %}">وارد</a> شوید.</p>
+                    {% endif %}
+                </div>
+                <!-- ========================================== -->
+                <!-- پایان بخش نظرات                           -->
+                <!-- ========================================== -->
+                
+                <small class="date">{{ artwork.created_at|date:"Y/m/d" }}</small>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- بخش صفحه‌بندی -->
+        <div class="pagination">
+            <div class="step-links">
+                {% if artworks.has_previous %}
+                    <a href="?page=1" class="page-link">&laquo; اولین</a>
+                    <a href="?page={{ artworks.previous_page_number }}" class="page-link">قبلی</a>
+                {% endif %}
+                
+                <span class="current-page">
+                    صفحه {{ artworks.number }} از {{ artworks.paginator.num_pages }}
+                </span>
+                
+                {% if artworks.has_next %}
+                    <a href="?page={{ artworks.next_page_number }}" class="page-link">بعدی</a>
+                    <a href="?page={{ artworks.paginator.num_pages }}" class="page-link">آخرین &raquo;</a>
+                {% endif %}
+            </div>
+        </div>
+        
+    {% else %}
+        <p class="empty-gallery">هنوز اثری به گالری اضافه نشده است.</p>
+        <p>لطفاً از <a href="/admin">پنل ادمین</a> چند اثر اضافه کنید.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}سایت خوشنویسی{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <h1>خوشنویسی <span class="gold">هنر جاودان</span></h1>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="{% url 'pages:home' %}">خانه</a></li>
+                    <li><a href="{% url 'pages:about' %}">درباره</a></li>
+                    <li><a href="{% url 'gallery:gallery_list' %}">گالری</a></li>
+                    <li><a href="{% url 'pages:contact' %}">تماس</a></li>
+                    
+                    <!-- بخش ثبت‌نام و ورود -->
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'users:logout' %}">خروج ({{ user.username }})</a></li>
+                    {% else %}
+                        <li><a href="{% url 'users:login' %}">ورود</a></li>
+                        <li><a href="{% url 'users:register' %}">ثبت‌نام</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© ۱۴۰۴ - تمامی حقوق محفوظ است</p>
+        </div>
+    </footer>
+
+</body>
+</html>
